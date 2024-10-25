@@ -1,1 +1,1 @@
-# App_of_apps Panda
+# App_of_apps
