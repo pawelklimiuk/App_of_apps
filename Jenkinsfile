@@ -42,10 +42,10 @@ pipeline {
                     withEnv(["FRONTEND_IMAGE=$frontendImage:$frontendDockerTag", 
                              "BACKEND_IMAGE=$backendImage:$backendDockerTag"]) 
                         {
-                        docker.withRegistry("$dockerRegistry","$registryCredentials") 
-                            {
-                            sh "docker-compose up -d"
-                            }
+                            docker.withRegistry( "$dockerRegistry", "$registryCredentials" )  
+                                {
+                                    sh "docker-compose up -d"
+                                }
                         }
                 }
             }
