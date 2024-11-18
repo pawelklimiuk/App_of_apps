@@ -40,13 +40,16 @@ pipeline {
             steps {
                 script {
                     withEnv(["FRONTEND_IMAGE=$frontendImage:$frontendDockerTag", 
-                             "BACKEND_IMAGE=$backendImage:$backendDockerTag"]) {
-                        sh "docker-compose up -d"
-                    }
+                             "BACKEND_IMAGE=$backendImage:$backendDockerTag"]) 
+                        {
+                        docker.withRegistry("$dockerRegistry","$registryCredentials") 
+                            {
+                            sh "docker-compose up -d"
+                            }
+                        }
                 }
             }
         }
-
         stage('Selenium tests') {
             steps {
                 sh "pip3 install -r selenium/requirements.txt"
