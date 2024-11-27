@@ -67,31 +67,31 @@ pipeline {
             }
         }
 
-        // stage('Run terraform') {
-        //     steps {
-        //         dir('Terraform') {                
-        //             git branch: 'main', url: 'https://github.com/pawelklimiuk/Terraform'
-        //             withAWS(credentials:'AWS', region: 'us-east-1') {
-        //                     sh 'terraform init -backend-config=bucket=pawel-klimiuk-panda-academy-panda-devops-core-19'
-        //                     sh 'terraform apply -auto-approve -var bucket_name=pawel-klimiuk-panda-academy-panda-devops-core-19'
+        stage('Run terraform') {
+            steps {
+                dir('Terraform') {                
+                    git branch: 'main', url: 'https://github.com/pawelklimiuk/Terraform'
+                    withAWS(credentials:'AWS', region: 'us-east-1') {
+                            sh 'terraform init -backend-config=bucket=pawel-klimiuk-panda-academy-panda-devops-core-19'
+                            sh 'terraform apply -auto-approve -var bucket_name=pawel-klimiuk-panda-academy-panda-devops-core-19'
                             
-        //             } 
-        //         }
-        //     }
-        // }
+                    } 
+                }
+            }
+        }
 
-        // stage('Run Ansible') {
-        //        steps {
-        //            script {
-        //                 sh "pip3 install -r requirements.txt"
-        //                 sh "ansible-galaxy install -r requirements.yml"
-        //                 withEnv(["FRONTEND_IMAGE=$frontendImage:$frontendDockerTag", 
-        //                          "BACKEND_IMAGE=$backendImage:$backendDockerTag"]) {
-        //                     ansiblePlaybook inventory: 'inventory', playbook: 'playbook.yml'
-        //                 }
-        //         }
-        //     }
-        // }
+        stage('Run Ansible') {
+               steps {
+                   script {
+                        sh "pip3 install -r requirements.txt"
+                        sh "ansible-galaxy install -r requirements.yml"
+                        withEnv(["FRONTEND_IMAGE=$frontendImage:$frontendDockerTag", 
+                                 "BACKEND_IMAGE=$backendImage:$backendDockerTag"]) {
+                            ansiblePlaybook inventory: 'inventory', playbook: 'playbook.yml'
+                        }
+                }
+            }
+        }
     
     }
 
