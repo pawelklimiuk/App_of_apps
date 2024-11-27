@@ -70,10 +70,10 @@ pipeline {
         stage('Run terraform') {
             steps {
                 dir('Terraform') {                
-                    git branch: 'main', url: 'https://github.com/Panda-Academy-Core-2-0/Terraform'
+                    git branch: 'main', url: 'https://github.com/pawelklimiuk/Terraform'
                     withAWS(credentials:'AWS', region: 'us-east-1') {
-                            sh 'terraform init -backend-config=bucket=panda-academy-panda-devops-core-n'
-                            sh 'terraform apply -auto-approve -var bucket_name=panda-academy-panda-devops-core-n'
+                            sh 'terraform init -backend-config=bucket=pawel-klimiuk-panda-academy-panda-devops-core-19'
+                            sh 'terraform apply -auto-approve -var bucket_name=pawel-klimiuk-panda-academy-panda-devops-core-19'
                             
                     } 
                 }
